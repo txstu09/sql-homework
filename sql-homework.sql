@@ -232,11 +232,25 @@ LIMIT 5;
 
 # 8a
 # ---------------------------
+CREATE VIEW top_five_genres AS
+SELECT category.name AS genre, SUM(payment.amount) AS gross_revenue
+FROM category
+	INNER JOIN film_category
+		ON category.category_id = film_category.category_id
+	INNER JOIN inventory
+		ON film_category.film_id = inventory.film_id
+	INNER JOIN rental
+		ON inventory.inventory_id = rental.inventory_id
+	INNER JOIN payment
+		ON rental.rental_id = payment.rental_id
+GROUP BY category.name
+ORDER BY gross_revenue DESC
+LIMIT 5;
 
+# 8b
+# ---------------------------
+SELECT * FROM top_five_genres;
 
-
-
-
-
-
-
+# 8c
+# ---------------------------
+DROP VIEW top_five_genres;
