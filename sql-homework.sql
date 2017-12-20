@@ -53,3 +53,29 @@ DROP COLUMN middle_name;
 
 # 4a
 # ---------------------------
+SELECT last_name, COUNT(last_name)
+FROM actor
+GROUP BY last_name;
+
+# 4b
+# ---------------------------
+SELECT last_name, COUNT(last_name)
+FROM actor
+GROUP BY last_name
+HAVING COUNT(last_name) >= 2;
+
+# 4c
+# ---------------------------
+UPDATE actor
+SET first_name = 'HARPO'
+WHERE first_name = 'GROUCHO'
+AND last_name = 'WILLIAMS';
+
+# 4d
+# ---------------------------
+UPDATE actor
+SET first_name = 'GROUCHO'
+WHERE actor_id = 172;
+
+# 5a
+# ---------------------------
