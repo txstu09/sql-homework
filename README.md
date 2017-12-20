@@ -1,4 +1,5 @@
 # sql-homework
+Select the default database:
 ```
 USE sakila;
 ```
