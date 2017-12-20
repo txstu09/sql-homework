@@ -59,7 +59,7 @@ GROUP BY last_name;
 
 # 4b
 # ---------------------------
-SELECT last_name, COUNT(last_name)
+SELECT last_name, COUNT(last_name) AS name_count
 FROM actor
 GROUP BY last_name
 HAVING COUNT(last_name) >= 2;
@@ -79,3 +79,42 @@ WHERE actor_id = 172;
 
 # 5a
 # ---------------------------
+????????????????????????????????
+
+# 6a
+# ---------------------------
+SELECT s.first_name, s.last_name, a.address
+FROM staff s
+INNER JOIN address a USING(address_id);
+
+# 6b
+# ---------------------------
+SELECT s.first_name, s.last_name, SUM(p.amount) AS august_total
+FROM staff s
+INNER JOIN payment p USING(staff_id)
+WHERE p.payment_date LIKE '2005-08%'
+GROUP BY s.last_name;
+
+# 6c
+# ---------------------------
+SELECT f.title, COUNT(a.actor_id) AS actor_count
+FROM film f
+INNER JOIN film_actor a USING(film_id)
+GROUP BY f.title;
+
+# 6d
+# ---------------------------
+SELECT f.title, COUNT(i.inventory_id) AS inventory_count
+FROM inventory i
+INNER JOIN film f
+ON i.film_id = f.film_id
+WHERE f.title = 'Hunchback Impossible';
+
+# 6e
+# ---------------------------
+SELECT c.first_name, c.last_name, SUM(p.amount) AS total_paid
+FROM payment p
+INNER JOIN customer c
+ON p.customer_id = c.customer_id
+GROUP BY c.last_name;
+
