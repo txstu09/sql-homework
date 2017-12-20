@@ -132,17 +132,17 @@ AND language_id IN
 
 # 7b
 # ---------------------------
-select first_name, last_name
-from actor
-where actor_id in
+SELECT first_name, last_name
+FROM actor
+WHERE actor_id IN
 	(
-	select actor_id
-	from film_actor
-	where film_id in
+	SELECT actor_id
+	FROM film_actor
+	WHERE film_id IN
 		(
-		select film_id
-		from film
-		where title = 'Alone Trip'
+		SELECT film_id
+		FROM film
+		WHERE title = 'Alone Trip'
 		));
 
 # 7c
