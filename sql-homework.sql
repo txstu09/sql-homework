@@ -37,3 +37,19 @@ WHERE country IN ('Afghanistan','Bangladesh','China');
 
 # 3a
 # ---------------------------
+ALTER TABLE actor
+ADD COLUMN middle_name VARCHAR(255)
+AFTER first_name;
+
+# 3b
+# ---------------------------
+ALTER TABLE actor
+MODIFY middle_name BLOB;
+
+# 3c
+# ---------------------------
+ALTER TABLE actor
+DROP COLUMN middle_name;
+
+# 4a
+# ---------------------------
