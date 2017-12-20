@@ -118,3 +118,125 @@ INNER JOIN customer c
 ON p.customer_id = c.customer_id
 GROUP BY c.last_name;
 
+# 7a
+# ---------------------------
+SELECT title
+FROM film
+WHERE (title LIKE 'q%' OR title LIKE 'k%')
+AND language_id IN
+	(
+	SELECT language_id
+	FROM language
+	WHERE name = 'English'
+	);
+
+# 7b
+# ---------------------------
+select first_name, last_name
+from actor
+where actor_id in
+	(
+	select actor_id
+	from film_actor
+	where film_id in
+		(
+		select film_id
+		from film
+		where title = 'Alone Trip'
+		));
+
+# 7c
+# ---------------------------
+SELECT c.first_name, c.last_name, c.email
+FROM customer c
+INNER JOIN address a
+ON c.address_id = a.address_id
+WHERE a.address_id IN
+	(
+	SELECT a.address_id
+	FROM address a
+	INNER JOIN city c
+	ON a.city_id = c.city_id
+	WHERE c.city_id IN
+		(
+		SELECT city.city_id
+		FROM city
+		INNER JOIN country
+		ON city.country_id = country.country_id
+		WHERE country.country = 'Canada'
+		));
+
+# 7d
+# ---------------------------
+SELECT title
+FROM film
+WHERE film_id IN
+	(
+	SELECT f.film_id
+	FROM film_category f
+	INNER JOIN category c
+	ON f.category_id = c.category_id
+	WHERE c.name = 'Family'
+	);
+
+# 7e
+# ---------------------------
+SELECT f.title, COUNT(f.title) AS rental_count
+FROM film f
+INNER JOIN inventory i
+ON f.film_id = i.film_id
+WHERE f.film_id IN
+	(
+	SELECT i.film_id
+	FROM inventory i
+	INNER JOIN rental r
+	ON i.inventory_id = r.inventory_id
+	)
+GROUP BY f.title
+ORDER BY rental_count DESC;
+
+# 7f
+# ---------------------------
+SELECT c.store_id, SUM(p.amount) AS revenue
+FROM customer c
+INNER JOIN payment p
+ON c.customer_id = p.customer_id
+GROUP BY c.store_id;
+
+# 7g
+# ---------------------------
+SELECT store.store_id, city.city, country.country
+FROM store
+	INNER JOIN address
+		ON store.address_id = address.address_id
+	INNER JOIN city
+		ON city.city_id = address.city_id
+	INNER JOIN country
+		ON country.country_id = city.country_id;
+
+# 7h
+# ---------------------------
+SELECT category.name, SUM(payment.amount) AS gross_revenue
+FROM category
+	INNER JOIN film_category
+		ON category.category_id = film_category.category_id
+	INNER JOIN inventory
+		ON film_category.film_id = inventory.film_id
+	INNER JOIN rental
+		ON inventory.inventory_id = rental.inventory_id
+	INNER JOIN payment
+		ON rental.rental_id = payment.rental_id
+GROUP BY category.name
+ORDER BY gross_revenue DESC
+LIMIT 5;
+
+# 8a
+# ---------------------------
+
+
+
+
+
+
+
+
