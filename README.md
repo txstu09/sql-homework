@@ -1,4 +1,5 @@
 # sql-homework
+[1a output](output/test.png)
 Select the default database:
 ```
 USE sakila;
